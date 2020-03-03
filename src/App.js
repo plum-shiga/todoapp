@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '@material-ui/core/Grid';
 
 import Form from './form.js';
@@ -10,6 +10,15 @@ const App = () => {
   const del = (key) => {
     setTodo(todos.filter((todo) => todo.key !== key));
   }
+  useEffect(() => {
+    if (todos.length >= 2) {
+      document.title = `${todos[0].title} ほか　${todos.length - 1} 件`;
+    } else if (todos.length === 1) {
+      document.title = `${todos[0].title}`;
+    } else {
+      document.title = 'Todo List';
+    }
+  });
   return (
     <div>
       <Form todos={todos} setTodo={setTodo} />
