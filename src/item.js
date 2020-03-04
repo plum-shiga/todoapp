@@ -5,11 +5,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-import "./item.css"
-
 const Item = (props) => {
   return (
-    <Paper className="item-inner">
+    <Paper>
      <CardContent>
         <Typography variant="h5" component="h2">
           {props.todo.title}
