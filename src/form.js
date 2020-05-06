@@ -29,6 +29,15 @@ const Form = (props) => {
       description: formData.description
     }]);
   }
+  const save = async() => {
+    const result = await putApi(props.todos);
+    console.log(result);
+    setKey(result.body.key);
+  }
+  const load = async () => {
+    const result = await getApi(key);
+    console.log(result.body);
+    props.setTodo(JSON.parse(result.body));
   return (
     <div>
       <Grid container direction="column" justify="center" alignItems="center" spacing={2}>
@@ -42,6 +51,20 @@ const Form = (props) => {
           <Button variant="contained" color="primary" onClick={ submit } className="input-inner">
             <span data-testid="button-submit-label">Todo の登録</span>
           </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container direction="row" alignItems="center" spacing={1}>
+            <Grid item xs={6}>
+              <Button variant="contained" color="primary" onClick={ save } className="half-button">
+                <span data-testid="button-save-label">Todo の保存</span>
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button variant="contained" color="primary" onClick={ load } className="half-button">
+                <span data-testid="button-read-label">Todo の読込</span>
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </div>
