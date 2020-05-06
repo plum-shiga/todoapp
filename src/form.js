@@ -48,10 +48,10 @@ const Form = (props) => {
     <div>
       <Grid container direction="column" justify="center" alignItems="center" spacing={2}>
         <Grid item xs={12} className="input-inner">
-          <TextField data-testid="todo-title" label="Todo のタイトル" name="title" onChange={handleChange} fullWidth margin="normal" />
+          <TextField data-testid="todo-title-input" label="Todo のタイトル" name="title" onChange={handleChange} fullWidth margin="normal" />
         </Grid>
         <Grid item xs={12} className="input-inner">
-          <TextField data-testid="todo-description" label="Todo の説明" name="description" onChange={handleChange} fullWidth margin="normal" />
+          <TextField data-testid="todo-description-input" label="Todo の説明" name="description" onChange={handleChange} fullWidth margin="normal" />
         </Grid>
         <Grid item xs={12}>
           <Button variant="contained" color="primary" onClick={ submit } className="input-inner">
