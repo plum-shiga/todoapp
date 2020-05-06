@@ -14,6 +14,7 @@ const Form = (props) => {
   const [formData, setFormData] = useState(
     {key: '', title: '', description: ''}
   );
+  const [key, setKey] = useState('');
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -38,6 +39,11 @@ const Form = (props) => {
     const result = await getApi(key);
     console.log(result.body);
     props.setTodo(JSON.parse(result.body));
+  }
+  const updatePassKey = e => {
+    const {value} = e.target;
+    setKey(value);
+  }
   return (
     <div>
       <Grid container direction="column" justify="center" alignItems="center" spacing={2}>
@@ -65,6 +71,10 @@ const Form = (props) => {
               </Button>
             </Grid>
           </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <p data-testid="password-label">パスワード</p>
+          <input data-testid="password-input" type="text" onChange={updatePassKey} value={key} />
         </Grid>
       </Grid>
     </div>
