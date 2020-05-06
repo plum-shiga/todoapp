@@ -17,7 +17,7 @@ const Form = (props) => {
       [e.target.name]:e.target.value
     });
   }
-  const save = () => {
+  const submit = () => {
     const date = new Date();
     const str = String(date.getTime()) + formData.title;
     props.setTodo([...props.todos,{
@@ -27,19 +27,21 @@ const Form = (props) => {
     }]);
   }
   return (
-    <Grid container direction="column" justify="center" alignItems="center" spacing={2}>
-      <Grid item xs={12} className="input-inner">
-        <TextField id="standard-basic" label="Todo のタイトル" name="title" onChange={handleChange} fullWidth margin="normal" />
+    <div>
+      <Grid container direction="column" justify="center" alignItems="center" spacing={2}>
+        <Grid item xs={12} className="input-inner">
+          <TextField data-testid="todo-title" label="Todo のタイトル" name="title" onChange={handleChange} fullWidth margin="normal" />
+        </Grid>
+        <Grid item xs={12} className="input-inner">
+          <TextField data-testid="todo-description" label="Todo の説明" name="description" onChange={handleChange} fullWidth margin="normal" />
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant="contained" color="primary" onClick={ submit } className="input-inner">
+            <span data-testid="button-submit-label">Todo の登録</span>
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item xs={12} className="input-inner">
-        <TextField id="standard-basic" label="Todo の説明" name="description" onChange={handleChange} fullWidth margin="normal" />
-      </Grid>
-      <Grid item xs={12}>
-        <Button variant="contained" color="primary" onClick={ save } className="large-button" >
-          Todo の登録
-        </Button>
-      </Grid>
-    </Grid>
+    </div>
   );
 }
 export default Form
