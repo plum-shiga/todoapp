@@ -15,6 +15,7 @@ const Form = (props) => {
     {key: '', title: '', description: ''}
   );
   const [key, setKey] = useState('');
+  const [testData, setTestData] = useState('');
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -44,11 +45,17 @@ const Form = (props) => {
     const {value} = e.target;
     setKey(value);
   }
+  const testChange = (e) => {
+    setTestData(e.target.value);
+  }
   return (
     <div>
+      <p className="test-output">{props.testOutput}</p>
+      <p className="test-hogeoutput">{testData}</p>
+      <TextField className="test-input" label="Todo のタイトル" name="title" onChange={testChange} fullWidth margin="normal" />
       <Grid container direction="column" justify="center" alignItems="center" spacing={2}>
         <Grid item xs={12} className="input-inner">
-          <TextField data-testid="todo-title-input" label="Todo のタイトル" name="title" onChange={handleChange} fullWidth margin="normal" />
+          <TextField className="todo-title-input" label="Todo のタイトル" name="title" onChange={handleChange} fullWidth margin="normal" />
         </Grid>
         <Grid item xs={12} className="input-inner">
           <TextField data-testid="todo-description-input" label="Todo の説明" name="description" onChange={handleChange} fullWidth margin="normal" />
@@ -74,7 +81,7 @@ const Form = (props) => {
         </Grid>
         <Grid item xs={12}>
           <p data-testid="password-label">パスワード</p>
-          <input data-testid="password-input" type="text" onChange={updatePassKey} value={key} />
+          <input className="password-input-text" data-testid="password-input" type="text" onChange={updatePassKey} value={key} />
         </Grid>
       </Grid>
     </div>
