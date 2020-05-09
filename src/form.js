@@ -45,14 +45,8 @@ const Form = (props) => {
     const {value} = e.target;
     setKey(value);
   }
-  const testChange = (e) => {
-    setTestData(e.target.value);
-  }
   return (
     <div>
-      <p className="test-output">{props.testOutput}</p>
-      <p className="test-hogeoutput">{testData}</p>
-      <TextField className="test-input" label="Todo のタイトル" name="title" onChange={testChange} fullWidth margin="normal" />
       <Grid container direction="column" justify="center" alignItems="center" spacing={2}>
         <Grid item xs={12} className="input-inner">
           <TextField className="todo-title-input" label="Todo のタイトル" name="title" onChange={handleChange} fullWidth margin="normal" />

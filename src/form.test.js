@@ -38,24 +38,7 @@ it('ラベルの確認', () =>{
   const title = screen.getByTestId("button-submit-label");
   expect(title.textContent).toBe("Todo の登録");
 });
-test('prop の値見るやつを enzyme でやってみた', () => {
-  const checkbox = shallow(<Form testOutput="test"/>);
-  expect(checkbox.find('.test-output').text()).toEqual('test');
-});
-test('onChange みるやつ', () => {
-  const checkbox = shallow(<Form />);
-  expect(checkbox.find('.test-hogeoutput').text()).toEqual('');
-
-  // name = e.target.name
-  // value = e.target.value
-  const dummyEvent = {
-    target: {
-      name: 'a',
-      value: 'aaaa'
-    }
-  }
-  checkbox.find('.test-input').simulate('change', dummyEvent);
-  expect(checkbox.find('.test-hogeoutput').text()).toEqual('aaaa');
+test('タイトルのみの Todo が作れるか', () => {
 });
 /*
 it('button クリックで item として登録されるかの確認', () =>{
