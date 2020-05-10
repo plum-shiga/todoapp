@@ -16,29 +16,25 @@ const Form = (props) => {
   );
   const [key, setKey] = useState('');
   const [testData, setTestData] = useState('');
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]:e.target.value
     });
   }
-  const submit = () => {
-    const date = new Date();
-    const str = String(date.getTime()) + formData.title;
+  const entry = () => {
     props.setTodo([...props.todos,{
-      key: crypto.createHash('sha256').update(str, 'utf8').digest('hex'),
       title: formData.title,
       description: formData.description
     }]);
   }
   const save = async() => {
     const result = await putApi(props.todos);
-    console.log(result);
     setKey(result.body.key);
   }
   const load = async () => {
     const result = await getApi(key);
-    console.log(result.body);
     props.setTodo(JSON.parse(result.body));
   }
   const updatePassKey = e => {
@@ -52,29 +48,29 @@ const Form = (props) => {
           <TextField className="todo-title-input" label="Todo のタイトル" name="title" onChange={handleChange} fullWidth margin="normal" />
         </Grid>
         <Grid item xs={12} className="input-inner">
-          <TextField data-testid="todo-description-input" label="Todo の説明" name="description" onChange={handleChange} fullWidth margin="normal" />
+          <TextField className="todo-description-input" label="Todo の説明" name="description" onChange={handleChange} fullWidth margin="normal" />
         </Grid>
         <Grid item xs={12}>
-          <Button variant="contained" color="primary" onClick={ submit } className="input-inner">
-            <span data-testid="button-submit-label">Todo の登録</span>
+          <Button className="input-inner button-entry" variant="contained" color="primary" onClick={ entry }>
+            <span className="button-entry-label">Todo の登録</span>
           </Button>
         </Grid>
         <Grid item xs={12}>
           <Grid container direction="row" alignItems="center" spacing={1}>
             <Grid item xs={6}>
               <Button variant="contained" color="primary" onClick={ save } className="half-button">
-                <span data-testid="button-save-label">Todo の保存</span>
+                <span className="button-save-label">Todo の保存</span>
               </Button>
             </Grid>
             <Grid item xs={6}>
-              <Button variant="contained" color="primary" onClick={ load } className="half-button">
-                <span data-testid="button-read-label">Todo の読込</span>
+              <Button className="half-button buntton-load" variant="contained" color="primary" onClick={ load }>
+                <span className="button-read-label">Todo の読込</span>
               </Button>
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <p data-testid="password-label">パスワード</p>
+          <p className="password-label">パスワード</p>
           <input className="password-input-text" data-testid="password-input" type="text" onChange={updatePassKey} value={key} />
         </Grid>
       </Grid>

@@ -31,25 +31,42 @@ afterEach(() => {
 });
 
 // テスト本体
-it('ラベルの確認', () =>{
-  act(() => {
-    render(<Form />, container);
-  });
-  const title = screen.getByTestId("button-submit-label");
-  expect(title.textContent).toBe("Todo の登録");
+test('ラベルの確認', () =>{
+  const form = shallow(<Form />);
+  expect(form.find('.button-entry-label').text()).toBe("Todo の登録");
 });
 test('タイトルのみの Todo が作れるか', () => {
-});
-/*
-it('button クリックで item として登録されるかの確認', () =>{
+  const fn = jest.fn();
+  // ちゃうな。 setTodo が何を受けたかを確認せんとあかんわ
+  const form = shallow(<Form todos={[]} setTodo={fn} />);
+  expect(form.find('.todo-title-input').text()).toEqual('');
 
-});
-it('窓入力したら state に値が入ることの確認', () =>{
+  // name = e.target.name
+  // value = e.target.value
+  const dummyEvent = {
+    target: {
+      name: 'title',
+      value: 'aaaa'
+    }
+  }
+  form.find('.todo-title-input').simulate('change', dummyEvent);
+  form.find('.button-entry').simulate('click');
+  const expectTodos = [{"description": "", "title": "aaaa"}];
+  expect(fn.mock.calls[0][0]).toStrictEqual(expectTodos);
 });
 
 it('state の値で get したらちゃんと todos にはいることの確認', () =>{
+  const fn = jest.fn(() => {
+    const res = {
+      title: 'aaa',
+      description: 'bbb'
+    }
+    return res;
+  });
+  console.log(fn());
+  expect(1).toBe(1);
 });
-
+/*
 it('タイトルと説明入れて登録押したら todos が増えることの確認', () =>{
 });
 
