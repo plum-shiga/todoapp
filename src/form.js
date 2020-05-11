@@ -15,7 +15,6 @@ const Form = (props) => {
     {key: '', title: '', description: ''}
   );
   const [key, setKey] = useState('');
-  const [testData, setTestData] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -24,7 +23,16 @@ const Form = (props) => {
     });
   }
   const entry = () => {
+    let key='';
+    if (props.isTest) {
+      key = props.keyNum;
+    } else {
+      const date = new Date();
+      const str = String(date.getTime()) + formData.title;
+      key = crypto.createHash('sha256').update(str, 'utf8').digest('hex');
+    }
     props.setTodo([...props.todos,{
+      key,
       title: formData.title,
       description: formData.description
     }]);
@@ -41,6 +49,8 @@ const Form = (props) => {
     const {value} = e.target;
     setKey(value);
   }
+
+  // render ===
   return (
     <div>
       <Grid container direction="column" justify="center" alignItems="center" spacing={2}>

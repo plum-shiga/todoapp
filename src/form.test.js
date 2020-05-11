@@ -37,8 +37,7 @@ test('ラベルの確認', () =>{
 });
 test('タイトルのみの Todo が作れるか', () => {
   const fn = jest.fn();
-  // ちゃうな。 setTodo が何を受けたかを確認せんとあかんわ
-  const form = shallow(<Form todos={[]} setTodo={fn} />);
+  const form = shallow(<Form todos={[]} setTodo={fn} isTest={true} testKey={'aaa'}/>);
   expect(form.find('.todo-title-input').text()).toEqual('');
 
   // name = e.target.name
@@ -51,11 +50,15 @@ test('タイトルのみの Todo が作れるか', () => {
   }
   form.find('.todo-title-input').simulate('change', dummyEvent);
   form.find('.button-entry').simulate('click');
-  const expectTodos = [{"description": "", "title": "aaaa"}];
+  const expectTodos = [{
+    'key': 'aaa',
+    'description': '',
+    'title': 'aaaa'
+  }];
   expect(fn.mock.calls[0][0]).toStrictEqual(expectTodos);
 });
-
-it('state の値で get したらちゃんと todos にはいることの確認', () =>{
+/*
+test('state の値で get したらちゃんと todos にはいることの確認', () =>{
   const fn = jest.fn(() => {
     const res = {
       title: 'aaa',
@@ -66,23 +69,23 @@ it('state の値で get したらちゃんと todos にはいることの確認'
   console.log(fn());
   expect(1).toBe(1);
 });
-/*
-it('タイトルと説明入れて登録押したら todos が増えることの確認', () =>{
+
+test('タイトルと説明入れて登録押したら todos が増えることの確認', () =>{
 });
 
-it('現状の todos で save して put してその文字列で get したら同じ todos が復元することの確認', () =>{
+test('現状の todos で save して put してその文字列で get したら同じ todos が復元することの確認', () =>{
 });
 
-it('削除できるか', () =>{
+test('削除できるか', () =>{
 });
 
 // エラー
-it('タイトルが空のとき', () =>{
+test('タイトルが空のとき', () =>{
 });
 
-it('説明が空のとき', () =>{
+test('説明が空のとき', () =>{
 });
 
-it('todos が空のとき', () =>{
+test('todos が空のとき', () =>{
 });
 */
