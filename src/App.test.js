@@ -35,5 +35,8 @@ afterEach(() => {
 // テスト本体
 test('ラベルの確認', () =>{
   const form = shallow(<App />);
+  form.setTodo([
+    {title: 'aaa', description: 'bbb'}
+  ]);
   expect(form.find('.button-entry-label').text()).toBe("Todo の登録");
 });

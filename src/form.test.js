@@ -57,6 +57,10 @@ test('タイトルのみの Todo が作れるか', () => {
   }];
   expect(fn.mock.calls[0][0]).toStrictEqual(expectTodos);
 });
+// https://enzymejs.github.io/enzyme/docs/api/
+// https://stackoverflow.com/questions/55342181/set-state-when-testing-functional-component-with-usestate-hook
+// https://kentcdodds.com/blog/react-hooks-whats-going-to-happen-to-my-tests
+
 /*
 test('state の値で get したらちゃんと todos にはいることの確認', () =>{
   const fn = jest.fn(() => {
