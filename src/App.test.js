@@ -45,6 +45,7 @@ test('ラベルの確認', () =>{
       description: 'bbb'
     }
   ];
-  const form = mount(<App todos={todos}/>);
-  expect(form.find('.button-entry-label').text()).toBe("Todo の登録");
+  const app = mount(<App todos={todos}/>);
+  expect(app.find('.button-entry-label').text()).toBe("Todo の登録");
+  expect(app.find('.title').text()).toBe("aaa");
 });
