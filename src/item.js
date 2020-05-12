@@ -10,15 +10,15 @@ const Item = (props) => {
     <Paper>
      <CardContent>
         <Typography variant="h5" component="h2">
-          <span data-testid="title">{props.todo.title}</span>
+          <span className="title">{props.todo.title}</span>
         </Typography>
         <Typography variant="body2" component="p">
-          <span data-testid="description">{props.todo.description}</span>
+          <span className="description">{props.todo.description}</span>
         </Typography>
       </CardContent>
       <CardActions>
         <Button variant="contained" color="primary" onClick={ () => props.del(props.todo.key) }>
-          <span data-testid="delete-label">削除</span>
+          <span className="delete-label">削除</span>
         </Button>
       </CardActions>
     </Paper>

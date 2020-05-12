@@ -1,4 +1,5 @@
 import React from 'react';
+import { configure, shallow  } from 'enzyme';
 import {
   render,
   unmountComponentAtNode
@@ -7,7 +8,12 @@ import {
   screen
 } from '@testing-library/dom'
 import '@testing-library/jest-dom/extend-expect'
-import { act } from "react-dom/test-utils";
+import {
+  act,
+  ReactTestUtils
+} from "react-dom/test-utils";
+import Adapter from 'enzyme-adapter-react-16';
+configure({ adapter: new Adapter() });
 
 import Item from './item'
 
@@ -25,7 +31,7 @@ afterEach(() => {
 });
 
 // テスト本体
-it('name をつけたりつけなかったりせずに render する', () =>{
+test('todo 通りの item 担っているかの確認', () =>{
   const testProps = {
     todo : {
       title: 'My title',
@@ -33,15 +39,10 @@ it('name をつけたりつけなかったりせずに render する', () =>{
       key: 'Mykey'
     }
   }
-  act(() => {
-    render(<Item todo={testProps.todo} />, container);
-  });
-  const title = screen.getByTestId("title");
-  expect(title.textContent).toBe("My title");
-  const desc = screen.getByTestId("description");
-  expect(desc.textContent).toBe("My description");
-  const delLa = screen.getByTestId("delete-label");
-  expect(delLa.textContent).toBe("削除");
+  const item = shallow(<Item todo={testProps.todo} />);
+  expect(item.find('.title').text()).toBe("My title");
+  expect(item.find('.description').text()).toBe("My description");
+  expect(item.find('.delete-label').text()).toBe("削除");
 });
 
 
