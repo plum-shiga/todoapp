@@ -31,7 +31,7 @@ afterEach(() => {
 });
 
 // テスト本体
-test('todo 通りの item 担っているかの確認', () =>{
+test('todo 通りの item になっているかの確認', () =>{
   const testProps = {
     todo : {
       title: 'My title',
