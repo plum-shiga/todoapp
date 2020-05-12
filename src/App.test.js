@@ -1,5 +1,9 @@
 import React from 'react';
-import { configure, shallow  } from 'enzyme';
+import {
+  configure,
+  shallow,
+  mount
+} from 'enzyme';
 import {
   render,
   unmountComponentAtNode
@@ -34,9 +38,13 @@ afterEach(() => {
 
 // テスト本体
 test('ラベルの確認', () =>{
-  const form = shallow(<App />);
-  form.setTodo([
-    {title: 'aaa', description: 'bbb'}
-  ]);
+  const todos = [
+    {
+      key: 'aaa',
+      title: 'aaa',
+      description: 'bbb'
+    }
+  ];
+  const form = mount(<App todos={todos}/>);
   expect(form.find('.button-entry-label').text()).toBe("Todo の登録");
 });

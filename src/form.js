@@ -25,7 +25,7 @@ const Form = (props) => {
   const entry = () => {
     let key='';
     if (props.isTest) {
-      key = props.keyNum;
+      key = props.testKey;
     } else {
       const date = new Date();
       const str = String(date.getTime()) + formData.title;
