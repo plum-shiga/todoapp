@@ -37,15 +37,23 @@ afterEach(() => {
 });
 
 // テスト本体
-test('ラベルの確認', () =>{
-  const todos = [
-    {
-      key: 'aaa',
-      title: 'aaa',
-      description: 'bbb'
+test('削除できるかどうかの確認', () =>{
+  const app = mount(<App />);
+  expect(app.find('.button-entry-label').text()).toBe('Todo の登録');
+  const dummyEvent = {
+    target: {
+      name: 'title',
+      value: 'aaaa'
     }
-  ];
-  const app = mount(<App todos={todos}/>);
-  expect(app.find('.button-entry-label').text()).toBe("Todo の登録");
-  expect(app.find('.title').text()).toBe("aaa");
+  }
+  app.find('.todo-title-input input').simulate('change', dummyEvent);
+  app.find('.button-entry button').simulate('click');
+  const expectTodos = [{
+    'description': '',
+    'title': 'aaaa'
+  }];
+  expect(app.find('.title').text()).toBe('aaaa');
+  app.find('.delete-button button').simulate('click');
+  expect(app.find('.title')).to.have.lengthOf(0);
+  app.unmount();
 });

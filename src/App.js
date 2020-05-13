@@ -24,7 +24,7 @@ const App = () => {
       <Form todos={todos} setTodo={setTodo} />
       <Card>
         {todos.map((todo) => (
-          <Item key={todo.key} todo={todo} del={ del }/>
+          <Item key={todo.key} todo={todo} del={del}/>
         ))}
       </Card>
     </div>

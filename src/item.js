@@ -17,7 +17,7 @@ const Item = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant="contained" color="primary" onClick={ () => props.del(props.todo.key) }>
+        <Button className="delete-button" variant="contained" color="primary" onClick={ () => props.del(props.todo.key) }>
           <span className="delete-label">削除</span>
         </Button>
       </CardActions>
