@@ -54,6 +54,6 @@ test('削除できるかどうかの確認', () =>{
   }];
   expect(app.find('.title').text()).toBe('aaaa');
   app.find('.delete-button button').simulate('click');
-  expect(app.find('.title')).to.have.lengthOf(0);
+  expect(app.find('.title')).toHaveLength(0);
   app.unmount();
 });
