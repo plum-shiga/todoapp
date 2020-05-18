@@ -32,7 +32,7 @@ afterEach(() => {
 
 // テスト本体
 test('ラベルの確認', () =>{
-  const form = shallow(<Form />);
+  const form = shallow(<Form todos={[]} />);
   expect(form.find('.button-entry-label').text()).toBe("Todo の登録");
 });
 test('タイトルのみの Todo が作れるか', () => {

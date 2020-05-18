@@ -38,7 +38,7 @@ const Form = (props) => {
     }]);
   }
   const save = async() => {
-    const result = await putApi(props.todos);
+    const result = await postApi(props.todos);
     setKey(result.body.key);
   }
   const load = async () => {
@@ -68,7 +68,7 @@ const Form = (props) => {
         <Grid item xs={12}>
           <Grid container direction="row" alignItems="center" spacing={1}>
             <Grid item xs={6}>
-              <Button variant="contained" color="primary" onClick={ save } className="half-button">
+              <Button className="half-button button-savea" variant="contained" color="primary" onClick={ save } disabled={!(props.todos.length > 0)}>
                 <span className="button-save-label">Todo の保存</span>
               </Button>
             </Grid>
@@ -79,9 +79,8 @@ const Form = (props) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <p className="password-label">パスワード</p>
-          <input className="password-input-text" data-testid="password-input" type="text" onChange={updatePassKey} value={key} />
+        <Grid item xs={12} className="input-inner">
+          <TextField className="password-input-text" label="パスワード" type="text" onChange={updatePassKey} value={key} fullWidth margin="normal" />
         </Grid>
       </Grid>
     </div>
@@ -109,9 +108,9 @@ async function getApi(param, header) {
     };
   }
 }
-async function putApi(params) {
+async function postApi(params) {
   try {
-    const res = await axios.put(API_URL, params);
+    const res = await axios.post(API_URL, params);
     return {
       result: 'OK',
       body: res.data

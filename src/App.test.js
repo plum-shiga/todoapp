@@ -48,12 +48,38 @@ test('削除できるかどうかの確認', () =>{
   }
   app.find('.todo-title-input input').simulate('change', dummyEvent);
   app.find('.button-entry button').simulate('click');
-  const expectTodos = [{
-    'description': '',
-    'title': 'aaaa'
-  }];
   expect(app.find('.title').text()).toBe('aaaa');
   app.find('.delete-button button').simulate('click');
   expect(app.find('.title')).toHaveLength(0);
   app.unmount();
 });
+test('post が動くことの確認', async() =>{
+  const app = mount(<App />);
+  expect(app.find('.button-entry-label').text()).toBe('Todo の登録');
+  const dummyEvent = [{
+    target: {
+      name: 'title',
+      value: 'aaaa'
+    }
+  }, {
+    target: {
+      name: 'title',
+      value: 'bbbb'
+    }
+  }];
+  app.find('.todo-title-input input').simulate('change', dummyEvent[0]);
+  app.find('.button-entry button').simulate('click');
+  app.find('.todo-title-input input').simulate('change', dummyEvent[1]);
+  app.find('.button-entry button').simulate('click');
+  expect(app.find('.title').at(0).text()).toBe('aaaa');
+  expect(app.find('.title').at(1).text()).toBe('bbbb');
+  app.find('.button-savea button').simulate('click');
+  await app.instance().componentDidMount();
+  expect(app.find('.password-input-text input').props().value).toBe('');
+  app.unmount();
+});
+test('get が動くことの確認', () =>{
+  const app = mount(<App />);
+  app.unmount();
+});
+
