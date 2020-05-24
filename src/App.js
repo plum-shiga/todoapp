@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Grid';
 import Form from './form.js';
 import Item from './item.js';
 
-const App = () => {
+const App = (props) => {
   const [todos, setTodo] = useState([
   ]);
   const del = (key) => {
@@ -21,7 +21,7 @@ const App = () => {
   });
   return (
     <div>
-      <Form todos={todos} setTodo={setTodo} />
+      <Form todos={todos} setTodo={setTodo} getApi={props.getApi} postApi={props.postApi} />
       <Card>
         {todos.map((todo) => (
           <Item key={todo.key} todo={todo} del={del}/>

@@ -53,7 +53,7 @@ test('削除できるかどうかの確認', () =>{
   expect(app.find('.title')).toHaveLength(0);
   app.unmount();
 });
-test('post が動くことの確認', async() =>{
+test('post でパスワードが表示されることの確認', (done) =>{
   const app = mount(<App />);
   expect(app.find('.button-entry-label').text()).toBe('Todo の登録');
   const dummyEvent = [{
@@ -74,8 +74,29 @@ test('post が動くことの確認', async() =>{
   expect(app.find('.title').at(0).text()).toBe('aaaa');
   expect(app.find('.title').at(1).text()).toBe('bbbb');
   app.find('.button-savea button').simulate('click');
-  await app.instance().componentDidMount();
-  expect(app.find('.password-input-text input').props().value).toBe('');
+  /*
+    *setImmediate() は現在のイベントループサイクルの終わりにコードを実行します。
+    このコードは、現在のイベントループ内の I/O 操作の後、
+    および次のイベントループのためにスケジュールされたタイマーの前に実行されます。
+    このコードの実行は「この直後」に行われると考えることができます。
+    つまり、setImmediate() 関数呼び出しに続くコードは、 setImmediate()関数引数の前に実行されます。
+
+console.log('before immediate');
+
+setImmediate((arg) => {
+  console.log(`executing immediate: ${arg}`);
+}, 'so immediate');
+
+console.log('after immediate');
+
+    *
+    * */
+  setImmediate(() => {
+    expect(app.find('.password-input-text input').value).toBe('aaa');
+
+    // Jestは テストを終了する前に、done コールバックが呼ばれるまで待ちます。
+    done();
+  });
   app.unmount();
 });
 test('get が動くことの確認', () =>{

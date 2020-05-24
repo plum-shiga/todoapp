@@ -1,7 +1,4 @@
-import crypto from 'crypto';
 import axios from 'axios';
-
-import './form.css';
 
 const API_URL = 'https://8syrxiande.execute-api.ap-northeast-1.amazonaws.com/prod/';
 
@@ -41,4 +38,3 @@ export async function postApi(params) {
     };
   }
 }
-export default Form
