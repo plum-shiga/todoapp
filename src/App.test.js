@@ -22,6 +22,7 @@ configure({ adapter: new Adapter() });
 import Item from './item'
 import Form from './form'
 import App from './app'
+import {getApi, postApi} from './api.js';
 
 let container = null;
 beforeEach(() => {
@@ -53,8 +54,10 @@ test('削除できるかどうかの確認', () =>{
   expect(app.find('.title')).toHaveLength(0);
   app.unmount();
 });
-test('post でパスワードが表示されることの確認', (done) =>{
-  const app = mount(<App />);
+
+test('post でパスワードが表示されることの確認', async () =>{
+  const app = mount(<App postApi={postApi} />);
+  /*
   expect(app.find('.button-entry-label').text()).toBe('Todo の登録');
   const dummyEvent = [{
     target: {
@@ -74,31 +77,27 @@ test('post でパスワードが表示されることの確認', (done) =>{
   expect(app.find('.title').at(0).text()).toBe('aaaa');
   expect(app.find('.title').at(1).text()).toBe('bbbb');
   app.find('.button-savea button').simulate('click');
+  */
+  app.find('.password-input-text input').simulate('change', {target: {value: 'My new value'}});
+  expect(app.find('.password-input-text input').type()).toBe('input');
+  expect(app.find('.password-input-text input').html()).toBe('aaa');
+
   /*
-    *setImmediate() は現在のイベントループサイクルの終わりにコードを実行します。
-    このコードは、現在のイベントループ内の I/O 操作の後、
-    および次のイベントループのためにスケジュールされたタイマーの前に実行されます。
-    このコードの実行は「この直後」に行われると考えることができます。
-    つまり、setImmediate() 関数呼び出しに続くコードは、 setImmediate()関数引数の前に実行されます。
-
-console.log('before immediate');
-
-setImmediate((arg) => {
-  console.log(`executing immediate: ${arg}`);
-}, 'so immediate');
-
-console.log('after immediate');
-
-    *
-    * */
-  setImmediate(() => {
-    expect(app.find('.password-input-text input').value).toBe('aaa');
-
-    // Jestは テストを終了する前に、done コールバックが呼ばれるまで待ちます。
-    done();
+  await act(async () => {
+    const date = new Date().getTime();
+    await tick();
+    const date2 = new Date().getTime();
+    const saun = date2 - date;
+    console.log(`差分:${saun}`);
+    app.unmount();
   });
-  app.unmount();
+  */
 });
+function tick() {
+  return new Promise(resolve => {
+    setTimeout(resolve, 1000);
+  })
+}
 test('get が動くことの確認', () =>{
   const app = mount(<App />);
   app.unmount();
